@@ -1,34 +1,25 @@
-from file_handler import get_csv_sheet
 import csv
-import collections
-
-#reader = get_csv_sheet()
-#for row in reader:
-#    print(row)
+from common import find_biggest_sum_in_dict
 
 
-#define our data
-with open(r"./korean_conflict.csv") as f:
-    csv_data = csv.reader(f,delimiter=",")
+def branch_counter(f):
+    csv_data = csv.reader(f, delimiter=",")
+    next(csv_data)
+    branch_counter = {}
+    for row in csv_data:
+        branch_counter.setdefault(row[3], 0)
+        branch_counter[row[3]] += 1
+    return branch_counter
 
-#our counter
-count = collections.Counter()
 
-#first pass read the file
-for row in csv_data:
-    BRANCH = row[3]
-    count[BRANCH] +=1
+def run(f):
+    f.seek(0)
+    branch_sums = branch_counter(f)
+    result = find_biggest_sum_in_dict(branch_sums)
+    print("The main Branch that people came from was: \"" + result["name"].lower().capitalize() +
+          "\" with total count of " + str(result["sum"]) + ".")
 
 #display duplicate info and total
-total_dups = 0
-for BRANCH,nb in count.items():
-    if nb>1:
-        total_dups += nb
-        print('{} is a duplicate branch, seen {} times'.format(BRANCH,nb))
-    else:
-        print('{} is a unique branch'.format(BRANCH))
-print("Total duplicate branches {}".format(total_dups))
-
 
 #with open('korean_conflict.csv') as csvfile:
  #   reader = csv.DictReader(csvfile)
