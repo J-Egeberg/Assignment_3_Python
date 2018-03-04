@@ -1,4 +1,5 @@
 import csv
+from common import find_biggest_sum_in_dict
 
 
 def sum_ethnicities(f):
@@ -14,17 +15,11 @@ def sum_ethnicities(f):
     return ethnicity_counter
 
 
-def print_biggest_ethnicity(ethnicity_sums):
-    biggest_sum = 0
-    biggest_ethnicity = ''
-    for ethnicity, count in ethnicity_sums.items():
-        if biggest_sum < count:
-            biggest_ethnicity = ethnicity
-            biggest_sum = count
-    print("Major ethnicity was: \"" + biggest_ethnicity.lower().capitalize() +
-          "\" with total count of " + str(biggest_sum) + ".")
 
 
 def run(f):
+    f.seek(0)
     ethnicity_sums = sum_ethnicities(f)
-    print_biggest_ethnicity(ethnicity_sums)
+    result = find_biggest_sum_in_dict(ethnicity_sums)
+    print("Major ethnicity was: \"" + result["name"].lower().capitalize() +
+          "\" with total count of " + str(result["sum"]) + ".")
