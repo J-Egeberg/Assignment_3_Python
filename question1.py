@@ -1,3 +1,5 @@
-from downloader import get_data
+from file_handler import get_csv_sheet
 
-get_data()
+reader = get_csv_sheet()
+for row in reader:
+    print(row)
