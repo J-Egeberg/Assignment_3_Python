@@ -1,15 +1,15 @@
 import csv
 import requests
 
-CSV_URL = 'http://samplecsvs.s3.amazonaws.com/Sacramentorealestatetransactions.csv'
+data = requests.get('https://raw.githubusercontent.com/PatrickFenger/pythonAssignments/master/KoreanConflict.csv')
+
+def get_data():
+    with open('korean_conflict.csv', 'w') as f:
+        writer = csv.writer(f)
+        reader = csv.reader(data.text.splitlines())
+
+        for row in reader:
+            writer.writerow(row)
 
 
-with requests.Session() as s:
-    download = s.get(CSV_URL)
-
-    decoded_content = download.content.decode('utf-8')
-
-    cr = csv.reader(decoded_content.splitlines(), delimiter=',')
-    my_list = list(cr)
-    for row in my_list:
-        print(row)
+    
