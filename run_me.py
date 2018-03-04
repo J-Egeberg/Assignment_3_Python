@@ -1,5 +1,5 @@
 from file_handler import download_csv_sheet
-import question1, question3, question4, question5
+import question1, question2, question3, question4, question5
 
 
 def print_question_separator(question_number):
@@ -10,6 +10,9 @@ csv_sheet_name = download_csv_sheet()
 with open(csv_sheet_name) as f:
     print_question_separator("1")
     question1.run(f)
+
+    print_question_separator("2")
+    question2.run(f)
 
     print_question_separator("3")
     question3.run(f)
